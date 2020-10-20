@@ -1,0 +1,46 @@
+{
+  "abstractTypes": [
+    "ABSTRACT-TYPES",
+    "SHOULD-GO-HERE",
+    "DROPDOWN",
+    "SLECTAGBLEITEM"
+  ],
+  "components": [
+    {
+      "name": "PLACEHOLDERNAME",
+      "type": "PLAEHOLDERTYPE",
+      "inputs": [],
+      "outputs": [],
+      "states": [
+        {
+          "name": "Init",
+          "type": "BASICSTATE"
+        },
+        {
+          "name": "Open",
+          "type": "BASICSTATE"
+        },
+        {
+          "name": "Closed",
+          "type": "BASICSTATE"
+        }
+      ],
+      "events": [],
+      "conditions": [],
+      "transitions": [
+        {
+          "from": "Open",
+          "event": "click",
+          "guard": null,
+          "to": "Closed"
+        },
+        {
+          "from": "Closed",
+          "event": "click",
+          "guard": null,
+          "to": "Open"
+        }
+      ]
+    }
+  ]
+}

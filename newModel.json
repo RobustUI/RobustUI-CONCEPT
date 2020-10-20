@@ -1,0 +1,57 @@
+{
+  "abstractTypes": [
+    "ABSTRACT-TYPES",
+    "SHOULD-GO-HERE",
+    "DROPDOWN",
+    "SLECTAGBLEITEM"
+  ],
+  "components": [
+    {
+      "name": "PLACEHOLDERNAME",
+      "type": "PLAEHOLDERTYPE",
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "onSelection",
+          "messageType": "String"
+        }
+      ],
+      "states": [
+        {
+          "name": "Init",
+          "type": "BASICSTATE"
+        },
+        {
+          "name": "Open",
+          "type": "BASICSTATE"
+        },
+        {
+          "name": "Closed",
+          "type": "BASICSTATE"
+        }
+      ],
+      "events": [],
+      "conditions": [],
+      "transitions": [
+        {
+          "from": "Init",
+          "event": "click",
+          "guard": null,
+          "to": "Open"
+        },
+        {
+          "from": "Open",
+          "event": "click",
+          "guard": null,
+          "to": "Closed"
+        },
+        {
+          "from": "Closed",
+          "event": "click",
+          "guard": null,
+          "to": "Open"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "hierarchy": [
+    {
+      "parent": "Select-Country",
+      "children": ["Open"]
+    },
+    {
+      "parent": "Open",
+      "children": ["Dropdown-item1"]
+    }
+  ],
+  "components": [
+    {
+      "name": "Select-Country",
+      "type": "XORSTATE",
+      "inputs": [],
+      "outputs": [
+        { "label": "onSelection", "messageType": "String" }
+      ],
+      "states": [
+        { "name": "Init", "type": "BASICSTATE"},
+        { "name": "Open", "type": "ANDSTATE" },
+        { "name": "Closed", "type": "BASICSTATE" },
+        { "name": "Selected", "type": "BASICSTATE"}
+      ],
+      "events": [
+        { "name": "click", "trigger": "mouseEvent.click" },
+        { "name": "Selection", "trigger": "Open.onSelection" }
+      ],
+      "conditions": [
+        {
+          "name": "INSIDE",
+          "expression": "click.target == DROPDOWN"
+        }
+      ],
+      "transitions": [
+        {"from": null, "event": null, "guard": null, "to": "Init"},
+        {"from": "Init", "event": "click", "guard": "INSIDE", "to": "Open"},
+        {"from": "Open", "event": "Selection", "guard": "INSIDE", "to": "Selected"},
+        {"from": "Open", "event": "click", "guard": "!INSIDE", "to": "Closed"},
+        {"from": "Closed", "event": "click", "guard": "INSIDE", "to": "Open"},
+        {"from": "Selected", "event": "click", "guard": "INSIDE", "to": "Open"}
+      ]
+    },
+    {
+      "name": "Open",
+      "type": "ANDSTATE",
+      "inputs": [],
+      "outputs": [
+        { "label": "onSelection", "messageType": "String" }
+      ],
+      "states": [
+        { "name": "Dropdown-item1", "type": "XORSTATE"}
+      ],
+      "events": [
+      ],
+      "conditions": [
+      ],
+      "transitions": [
+      ]
+    },
+    {
+      "name": "Dropdown-item1",
+      "type": "XORSTATE",
+      "inputs": [
+        { "label": "otherSelection", "messageType": "String" }
+      ],
+      "outputs": [
+        { "label": "onSelected", "messageType": "String" }
+      ],
+      "states": [
+        { "name": "Active", "type": "BASICSTATE"},
+        { "name": "Hovered", "type": "BASICSTATE"},
+        { "name": "Selected", "type": "BASICSTATE"},
+        { "name": "Disabled", "type": "BASICSTATE"},
+        { "name": "DisabledHovered", "type": "BASICSTATE"},
+        { "name": "DisabledSelected", "type": "BASICSTATE"}
+      ],
+      "events": [
+        { "name": "hover", "trigger": "mouseEvent.enter" },
+        { "name": "leave", "trigger": "mouseEvent.leave" },
+        { "name": "click", "trigger": "mouseEvent.click" },
+        { "name": "otherSelection", "trigger": "otherSelction(MESSAGE)" }
+      ],
+      "conditions": [
+        { "name": "ACTIVE", "expression": true },
+        { "name": "NOTME(MESSAGE)", "expression": "name != MESSAGE" }
+      ],
+      "transitions": [
+        {"from": null, "event": null, "guard": "ACTIVE", "to": "Active"},
+        {"from": "Active", "event": "hover", "guard": null, "to": "Hovered"},
+        {"from": "Hovered", "event": "leave", "guard": null, "to": "Active"},
+        {"from": "Hovered", "event": "click", "guard": null, "to": "Selected"},
+        {"from": "Selected", "event": "otherSelection(MESSAGE)", "guard": "NOTME(MESSAGE)", "to": "Active"},
+        {"from": null, "event": null, "guard": "!ACTIVE", "to": "Disabled"},
+        {"from": "Disabled", "event": "hover", "guard": null, "to": "DisabledHovered"},
+        {"from": "DisabledHovered", "event": "leave", "guard": null, "to": "Disabled"},
+        {"from": "DisabledHovered", "event": "click", "guard": null, "to": "DisabledSelected"},
+        {"from": "DisabledSelected", "event": "otherSelection(MESSAGE)", "guard": "NOTME(MESSAGE)", "to": "Disabled"}
+      ]
+    }
+  ]
+}
